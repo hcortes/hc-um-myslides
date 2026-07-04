@@ -5,32 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <title>Microcredencial P009 - Pensamiento Crítico para Trabajar con IA</title>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    
-    // Función para activar la pantalla completa nativa del dispositivo
-    function activarFullscreen() {
-      const docEl = document.documentElement;
-      
-      if (docEl.requestFullscreen) {
-        docEl.requestFullscreen();
-      } else if (docEl.mozRequestFullScreen) { /* Firefox */
-        docEl.mozRequestFullScreen();
-      } else if (docEl.webkitRequestFullscreen) { /* Chrome, Safari y Opera */
-        docEl.webkitRequestFullscreen();
-      } else if (docEl.msRequestFullscreen) { /* IE/Edge */
-        docEl.msRequestFullscreen();
-      }
-      
-      // Una vez activado, removemos los escuchadores para que los siguientes toques no den error
-      window.removeEventListener('click', activarFullscreen);
-      window.removeEventListener('touchstart', activarFullscreen);
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      // Solo ejecutamos esta lógica si es un dispositivo móvil/pantalla chica
+      if (window.innerWidth <= 768) {
+        
+        window.addEventListener('touchend', function(e) {
+          // CONTROL DE USABILIDAD: Comprobamos qué elemento tocó el usuario
+          // Si tocó un enlace (<a>), un botón (<button>), o la barra misma, NO hacemos nada.
+          if (
+            e.target.closest('a') || 
+            e.target.closest('button') || 
+            e.target.closest('[class*="bottom"]')
+          ) {
+            return; // Permite que el link o el botón funcionen normalmente
+          }
 
-    // Escucha el primer toque o click del usuario en cualquier parte del celular
-    window.addEventListener('click', activarFullscreen, { once: true });
-    window.addEventListener('touchstart', activarFullscreen, { once: true });
-  });
-</script>
+          // Si tocó cualquier otro lado libre de la pantalla, alternamos la barra
+          document.body.classList.toggle('mostrar-menu');
+        }, { passive: true });
+
+      }
+    });
+  </script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;600&family=Fira+Code:wght@200;400;600&display=swap" type="text/css">
 <style>
 /* .slidev-layout {
@@ -284,16 +280,37 @@ body,
   opacity: 1 !important;
 }
 
+
+
+/* 1. CONFIGURACIÓN CSS: Ocultar barra en móviles y prepararla para la animación */
+@media (max-width: 768px) {
+    /* Buscamos el contenedor de la barra inferior usando tu selector efectivo */
+    [class*="bottom"] {
+    transform: translateY(120%) !important; /* La esconde hacia abajo */
+    transition: transform 0.3s ease-in-out !important; /* Animación suave */
+    display: flex !important; /* Asegura que no se rompa el diseño interno */
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    }
+
+    /* Clase dinámica que aplicaremos con JS para mostrar la barra */
+    body.mostrar-menu [class*="bottom"] {
+    transform: translateY(0%) !important; /* La sube a su posición original */
+    }
+}
+
+
 </style>
 <link rel="icon" href="https://cdn.jsdelivr.net/gh/slidevjs/slidev/assets/favicon.png">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta property="slidev:version" content="52.16.0">
-<meta property="og:title" content="Microcredencial P009 - Pensamiento Crítico para Trabajar con IA">  <script type="module" crossorigin src="./assets/index-BtEzoVLr.js"></script>
+<meta property="og:title" content="Microcredencial P009 - Pensamiento Crítico para Trabajar con IA">  <script type="module" crossorigin src="./assets/index-G2BJi9R3.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-QTnfLwEv.js">
   <link rel="modulepreload" crossorigin href="./assets/modules/shiki-D1fsZn51.js">
   <link rel="modulepreload" crossorigin href="./assets/modules/vue-CGKVG17P.js">
   <link rel="stylesheet" crossorigin href="./assets/modules/shiki-BrmBd2_v.css">
-  <link rel="stylesheet" crossorigin href="./assets/index-DxdIdzMZ.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-CevvsGun.css">
 </head>
 <body>
   <div id="app"></div>
