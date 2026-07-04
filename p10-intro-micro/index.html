@@ -43,7 +43,7 @@ html, body {
 } */
 
 
-/* XXX */
+/* XXX OCULTA TOTALMENTE LA BARRA*/
 /* body *:not(.slidev-layout):not(.slidev-layout *):is(
   [class*="bottom"],
   [style*="bottom"]
@@ -52,8 +52,21 @@ html, body {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-} */
+}
+ */
 
+/* Utiliza la misma estructura para aislar solo los elementos del menú final */
+[class*="bottom"] button:has(div[class*="settings"]),
+[class*="bottom"] button:has(span[class*="settings"]),
+[class*="bottom"] button[title*="options" i],
+[class*="bottom"] button[aria-label*="options" i],
+[class*="bottom"] .v-separator,
+[class*="bottom"] .slidev-nav-controls button:nth-last-child(-n+2) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
 
 
 /* =========================================================
